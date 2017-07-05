@@ -1,0 +1,66 @@
+{% extends "complaints/base-template.html" %}
+
+{% block title %} Returned Complaint Details {% endblock %}
+{% block heading %} Returned Complaint Details {% endblock %}
+{% block panel-heading %} Returned Complaint Details {% endblock %}
+{% block content %}
+    <div class="table-responsive">
+        <table class="table table-bordered">
+                <tr>
+                    <th>Petition ID No</th>
+                    <td>{{ detail.petition_id_no}}</td>
+                    <th>ID Date</th>
+                    <td>{{ detail.id_date | date:"d-M-Y"}}</td>
+                    <th>Category</th>
+                    <td>{{ detail.category }}</td>
+                </tr>
+                <tr>
+                    <th>Fwd Date</th>
+                    <td>{{ detail.fwd_date | date:"d-M-Y" }}</td>
+                    <th>No. of Days Past</th>
+                    <td>{{ complaint.days_past }}</td>
+                    <th>Pending Since</th>
+                    <td>{{ complaint.pending_since}}</td>
+                </tr>
+                <tr>
+                    <th>Name of Petitioner</th>
+                    <td>{{ detail.petitioner_name}}
+                    </td>
+                    <th>Petition Date</th>
+                    <td>{{ detail.petition_date | date:"d-M-Y"}}</td>
+                    <td colspan="2"></td>
+                </tr>
+                {% if detail.vip_name and detail.vip_name.strip %}
+                <tr>
+                    <th>Name of MP/VIP</th>
+                    <td>{{ detail.vip_name }}</td>
+                    <th>Appointment of MP/VIP</th>
+                    <td>{{ detail.vip_appointment }}</td>
+                    <td colspan="2"></td>
+                </tr>
+                {% endif %}
+
+                <tr>
+                    <th>Subject</th>
+                    <td colspan="5">{{ detail.subject }}</td>
+                </tr>
+                <tr>
+                    <th>Remarks</th>
+                    <td colspan="5">{{ detail.remarks }}</td>
+                </tr>
+                <tr>
+                    <th>Attachments</th>
+                    <td colspan="5">
+                        {% for attachment in attachments %}
+                            <a href="{{attachment.file.url}}">{{ attachment.filename}}</a>
+                            {% if not forloop.last %}&nbsp;&nbsp; {% endif %}
+                        {% endfor %}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+        {% load crispy_forms_tags %} 
+        {% crispy form form.helper %}
+{% endblock %}

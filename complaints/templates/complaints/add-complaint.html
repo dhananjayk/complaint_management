@@ -1,0 +1,9 @@
+{% extends "complaints/base-template.html" %}
+
+{% block title %} Add Complaint {% endblock %}
+{% block heading %} Add Complaint {% endblock %}
+{% block panel-heading %} Add Complaint {% endblock %}
+{% block content %}
+    {% load crispy_forms_tags %}
+    {% crispy form form.helper %}
+{% endblock %}

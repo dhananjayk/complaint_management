@@ -1,0 +1,6 @@
+*.pyc
+.project
+.pydevproject
+complaints/media/uploads/*
+venv
+static/

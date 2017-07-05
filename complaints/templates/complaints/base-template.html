@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load staticfiles %}
+{% load custom_tags %}
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>{% block title %}Complaint Management System{% endblock %}</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="{% static 'complaints/bower_components/bootstrap/dist/css/bootstrap.min.css' %}" rel="stylesheet">
+
+    <!-- MetisMenu CSS -->
+    <link href='{% static "complaints/bower_components/metisMenu/dist/metisMenu.min.css" %}' rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href='{% static "complaints/dist/css/sb-admin-2.css" %}' rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href='{% static "complaints/bower_components/font-awesome/css/font-awesome.min.css" %}' rel="stylesheet"
+          type="text/css">
+
+    <link href='{% static "complaints/css/style.css" %}' rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+
+<div id="wrapper">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Complaint Management System</a>
+        </div>
+        <!-- /.navbar-header -->
+
+        <ul class="nav navbar-top-links navbar-right">
+            <li>
+                <a href="{% url 'logout' %}"><i class="fa fa-power-off fa-fw"></i> Logout</a>
+            </li>
+        </ul>
+        <!-- /.navbar-top-links -->
+
+        <div class="navbar-default sidebar" role="navigation">
+            <div class="sidebar-nav navbar-collapse">
+                {% block sidebar %}
+
+                    <ul class="nav" id="side-menu" style="margin-top:40px">
+                        {% if user|has_group:"MIS" %}
+                            <li>
+                                <a href="{% url 'add-complaint' %}"><i class="fa fa-edit fa-fw"></i> Add Complaint</a>
+                            </li>
+                            <li>
+                                <a href="{% url 'returned-complaints' %}"><i class="fa fa-edit fa-fw"></i> Returned Complaints</a>
+                            </li>
+                            <li class="active">
+                                <a href="#"><i class="fa fa-wrench fa-fw"></i> Outstanding Complaints<span
+                                        class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level">
+                                    {% for category in categories %}
+                                        <li>
+                                            <a href="{% url 'pending-complaints' category.0 %}">{{ category.1 }}</a>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </li>
+                            <li class="active">
+                                <a href="#"><i class="fa fa-wrench fa-fw"></i> Settled Complaints<span
+                                        class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level">
+                                    {% for category in categories %}
+                                        <li>
+                                            <a href="{% url 'settled-complaints' category.0 %}">{{ category.1 }}</a>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </li>
+
+                            <li class="active">
+                                <a href="#"><i class="fa fa-wrench fa-fw"></i> Report<span
+                                        class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level">
+                                    {% for category in categories %}
+                                        <li>
+                                            <a href="{% url 'category-report' category.0 %}">{{ category.1 }}</a>
+                                        </li>
+                                    {% endfor %}
+                                        <li>
+                                            <a href="{% url 'category-report' "summary" %}">Summary</a>
+                                        </li>
+                                </ul>
+                            </li>
+
+                        {% else %}
+                            <li class="active">
+                                <a href="#"><i class="fa fa-wrench fa-fw"></i> Pending Complaints<span
+                                        class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level">
+                                    {% for category in categories %}
+                                        <li>
+                                            <a href="{% url 'list-complaints' category.0 %}">{{ category.1 }}</a>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </li>
+                            <li class="active">
+                                <a href="#"><i class="fa fa-wrench fa-fw"></i> Settled Complaints<span
+                                        class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level">
+                                    {% for category in categories %}
+                                        <li>
+                                            <a href="{% url 'settled-complaints' category.0 %}">{{ category.1 }}</a>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </li>
+                             <li class="active">
+                                <a href="#"><i class="fa fa-wrench fa-fw"></i> Report<span
+                                        class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level">
+                                        <li>
+                                            <a href="{% url 'category-report' "summary" %}">Summary</a>
+                                        </li>
+                                </ul>
+                            </li>
+
+                        {% endif %}
+
+                    </ul>
+                {% endblock %}
+                <!-- /.nav-second-level -->
+                </li>
+                </ul>
+            </div>
+            <!-- /.sidebar-collapse -->
+        </div>
+        <!-- /.navbar-static-side -->
+    </nav>
+
+    <!-- Page Content -->
+    <div id="page-wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">{% block heading %}{% endblock %}</h1>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            {% block panel-heading %}{% endblock %}
+                        </div>
+                        <div class="panel-body">
+                            {% block content %}{% endblock %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.container-fluid -->
+    </div>
+    <!-- /#page-wrapper -->
+
+</div>
+<!-- /#wrapper -->
+
+<!-- jQuery -->
+<script src='{% static "complaints/bower_components/jquery/dist/jquery.min.js" %}'></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src='{% static "complaints/bower_components/bootstrap/dist/js/bootstrap.min.js" %}'></script>
+
+<!-- Metis Menu Plugin JavaScript -->
+<script src='{% static "complaints/bower_components/metisMenu/dist/metisMenu.min.js" %}'></script>
+
+<!-- Custom Theme JavaScript -->
+<script src='{% static "complaints/dist/js/sb-admin-2.js" %}'></script>
+
+</body>
+
+</html>

@@ -1,0 +1,51 @@
+{% extends "complaints/base-template.html" %}
+
+{% block title %} COMPLAINTS /PETITIONS SETTLED : {{ category }} {% endblock %}
+{% block heading %}COMPLAINTS /PETITIONS SETTLED : {{ category }}{% endblock %}
+{% block panel-heading %} COMPLAINTS /PETITIONS SETTLED : {{ category }} {% endblock %}
+{% block content %}
+
+    {% load crispy_forms_tags %}
+    {% crispy form form.helper %}
+    <div class="table-responsive" style="margin-top: 15px;">
+        <table class="table table-striped table-bordered table-hover">
+            <thead>
+            <tr>
+                <th>Sr. No</th>
+                <th>Petition ID No</th>
+                <th>ID Date</th>
+                <th>Subject</th>
+                <th>Petitioner's Name</th>
+                <th>Dealing Section</th>
+                <th>Ref letter vide which reply fwd / Action Taken</th>
+                <th>Date of Reply</th>
+                <th>Reply Letter Download</th>
+                <!--<th></th>-->
+            </tr>
+            </thead>
+            <tbody>
+            {% for complaint in complaints %}
+                <tr>
+                <td>{{ forloop.counter0|add:page_obj.start_index }}</td>
+                <td>{{ complaint.petition_id_no }}</td>
+                <td>{{ complaint.id_date | date:"d-M-Y" }}</td>
+                <td>{{ complaint.subject }}</td>
+                <td>{{ complaint.petitioner_name | capfirst }}</td>
+                <td>{{ complaint.fwd_to.first_name }}</td>
+                <td>{{ complaint.reply_letter_no }}</td>
+                <td>{{ complaint.date_of_reply }}</td>
+                {% if complaint.reply_letter == '' %}
+                    <td><a href="{% url 'reply-letter' complaint.id %}">Add Reply Letter</a></td>
+                {% else %}
+                    <td><a href="{{ complaint.reply_letter.url }}">Download</a></td>
+                {% endif %}
+            {% endfor %}
+            </tbody>
+        </table>
+        <p><b>Number of Complaints found: {{ page_obj.paginator.count }}</b></p>
+        {% if is_paginated %}
+            {% include "complaints/paginator.html" %}
+        {% endif %}
+    </div>
+
+{% endblock %}
