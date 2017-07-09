@@ -78,7 +78,7 @@
                                 <ul class="nav nav-second-level">
                                     {% for category in categories %}
                                         <li>
-                                            <a href="{% url 'pending-complaints' category.0 %}">{{ category.1 }}</a>
+                                            <a href="{% url 'pending-complaints' category=category.0 %}">{{ category.1 }}</a>
                                         </li>
                                     {% endfor %}
                                 </ul>
@@ -89,7 +89,7 @@
                                 <ul class="nav nav-second-level">
                                     {% for category in categories %}
                                         <li>
-                                            <a href="{% url 'settled-complaints' category.0 %}">{{ category.1 }}</a>
+                                            <a href="{% url 'settled-complaints' category=category.0 %}">{{ category.1 }}</a>
                                         </li>
                                     {% endfor %}
                                 </ul>
@@ -101,7 +101,7 @@
                                 <ul class="nav nav-second-level">
                                     {% for category in categories %}
                                         <li>
-                                            <a href="{% url 'category-report' category.0 %}">{{ category.1 }}</a>
+                                            <a href="{% url 'category-report' category=category.0 %}">{{ category.1 }}</a>
                                         </li>
                                     {% endfor %}
                                         <li>
@@ -117,7 +117,7 @@
                                 <ul class="nav nav-second-level">
                                     {% for category in categories %}
                                         <li>
-                                            <a href="{% url 'list-complaints' category.0 %}">{{ category.1 }}</a>
+                                            <a href="{% url 'list-complaints' category=category.0 %}">{{ category.1 }}</a>
                                         </li>
                                     {% endfor %}
                                 </ul>
@@ -128,7 +128,7 @@
                                 <ul class="nav nav-second-level">
                                     {% for category in categories %}
                                         <li>
-                                            <a href="{% url 'settled-complaints' category.0 %}">{{ category.1 }}</a>
+                                            <a href="{% url 'settled-complaints' category=category.0 %}">{{ category.1 }}</a>
                                         </li>
                                     {% endfor %}
                                 </ul>

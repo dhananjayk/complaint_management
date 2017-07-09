@@ -79,12 +79,12 @@ WSGI_APPLICATION = 'army_cms.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'army_cms',
-        'USER': 'root',
-        'PASSWORD': 'Fur!0u$',
-        'HOST': '127.0.0.1',
-        'PORT': '3306',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'E:/personal/army_cms/cms.db',
+        # 'USER': 'root',
+        # 'PASSWORD': 'Fur!0u$',
+        # 'HOST': '127.0.0.1',
+        # 'PORT': '3306',
     }
 }
 

@@ -40,7 +40,8 @@ class IndexView(View):
             if request.user.groups.filter(name='MIS').exists():
                 return HttpResponseRedirect(reverse("add-complaint"))
             elif request.user.groups.filter(name='Others').exists():
-                return HttpResponseRedirect(reverse("list-complaints"))
+                kwarg = {'category': Category.objects.all().order_by('category').first().clean_name}
+                return HttpResponseRedirect(reverse("list-complaints", kwargs=kwarg))
             else:
                 return HttpResponseRedirect(reverse("login"))
         else:

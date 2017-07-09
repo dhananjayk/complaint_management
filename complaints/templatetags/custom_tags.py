@@ -28,4 +28,4 @@ def get_page_range(value, arg):
     end = start + 10
     if end > arg:
         end = arg
-    return xrange(start, end)
+    return xrange(start, end+1)
