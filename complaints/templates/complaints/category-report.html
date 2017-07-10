@@ -2,7 +2,7 @@
 
 {% block title %} Report for {{ category }} {% endblock %}
 {% block heading %} STATE OF COMPLAINTS / PETITIONS {% endblock %}
-{% block panel-heading %} STATE OF COMPLAINTS / PETITIONS - AS ON {{ today_date|date:"d M Y" }} {% endblock %}
+{% block panel-heading %} STATE OF COMPLAINTS / PETITIONS {{ category|upper }} - AS ON {{ today_date|date:"d M Y" }}  Total Complaints found: {{ total_complaints }} {% endblock %}
 {% block content %}
     <div class="row" style="position: relative;">
     {% load crispy_forms_tags %}
@@ -60,3 +60,4 @@
 
 
 {% endblock %}
+{% block panel-footer %} STATE OF COMPLAINTS / PETITIONS {{ category|upper }} - AS ON {{ today_date|date:"d M Y" }}  Total Complaints found: {{ total_complaints }} {% endblock %}

@@ -2,7 +2,8 @@
 
 {% block title %} COMPLAINTS /PETITIONS SETTLED : {{ category }} {% endblock %}
 {% block heading %}COMPLAINTS /PETITIONS SETTLED : {{ category }}{% endblock %}
-{% block panel-heading %} COMPLAINTS /PETITIONS SETTLED : {{ category }} {% endblock %}
+{% block panel-heading %}Total <b>{{ complaints_count }}</b> COMPLAINTS /PETITIONS SETTLED : {{ category|upper }} as on
+    {{ today_date|date:"d M Y" }} <br> Number of Complaints Found: <b>{{ page_obj.paginator.count }}</b> {% endblock %}
 {% block content %}
 
     {% load crispy_forms_tags %}
@@ -49,3 +50,5 @@
     </div>
 
 {% endblock %}
+{% block panel-footer %}Total <b>{{ complaints_count }}</b> COMPLAINTS /PETITIONS SETTLED : {{ category|upper }} as on
+    {{ today_date|date:"d M Y" }} <br> Number of Complaints Found: <b>{{ page_obj.paginator.count }}</b> {% endblock %}

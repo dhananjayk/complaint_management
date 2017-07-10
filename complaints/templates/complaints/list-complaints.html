@@ -2,7 +2,9 @@
 
 {% block title %} Pending Complaints {% endblock %}
 {% block heading %} Pending Complaints {% endblock %}
-{% block panel-heading %} Number of Complaints found: {{ page_obj.paginator.count }} {% endblock %}
+{% block panel-heading %} Total <b>{{ complaints_count }}</b> Outstanding Complaints : {{ category|upper }} as
+    on
+    {{ today_date|date:"d M Y" }} <br> Number of Complaints Found: <b>{{ page_obj.paginator.count }}</b>  {% endblock %}
  
 {% block content %}
     {% load crispy_forms_tags %}
@@ -43,3 +45,6 @@
         {% endif %}
     </div>
 {% endblock %}
+{% block panel-footer %} Total <b>{{ complaints_count }}</b> Outstanding Complaints : {{ category|upper }} as
+    on
+    {{ today_date|date:"d M Y" }} <br> Number of Complaints Found: <b>{{ page_obj.paginator.count }}</b>  {% endblock %}

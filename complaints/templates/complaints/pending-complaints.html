@@ -62,3 +62,6 @@
 
     </div>
 {% endblock %}
+{% block panel-footer %}Total <b>{{ complaints_count }}</b> Outstanding Complaints : {{ category|upper }} as
+    on
+    {{ today_date|date:"d M Y" }} <br> Number of Complaints Found: <b>{{ page_obj.paginator.count }}</b>  {% endblock %}

@@ -2,7 +2,8 @@
 
 {% block title %} COMPLAINTS /PETITIONS RETURNED : {{ category }} {% endblock %}
 {% block heading %}COMPLAINTS /PETITIONS RETURNED : {{ category }}{% endblock %}
-{% block panel-heading %} COMPLAINTS /PETITIONS RETURNED : {{ category }} {% endblock %}
+{% block panel-heading %} Total <b>{{ complaints_count }}</b> COMPLAINTS /PETITIONS RETURNED : {{ category|upper }} as on
+    {{ today_date|date:"d M Y" }} <br> Number of Complaints Found: <b>{{ page_obj.paginator.count }}</b> {% endblock %}
 {% block content %}
         {% load crispy_forms_tags %}
         {% crispy form form.helper %}
@@ -54,3 +55,5 @@
         </table>
     </div>
 {% endblock %}
+{% block panel-footer %} Total <b>{{ complaints_count }}</b> COMPLAINTS /PETITIONS RETURNED : {{ category|upper }} as on
+    {{ today_date|date:"d M Y" }} <br> Number of Complaints Found: <b>{{ page_obj.paginator.count }}</b> {% endblock %}

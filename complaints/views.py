@@ -94,11 +94,20 @@ class ListComplaintsView(SearchListView):
     form_class = SearchPendingComplaintForm
     filter_class = PendingComplaintsFilter
 
+
     def get_queryset(self):
         forwarded_to = self.request.user
         category = Category.objects.get(clean_name=self.kwargs['category'])
         complaints = Complaint.objects.filter(category=category).filter(fwd_to=forwarded_to).filter(status=0)
         return complaints
+
+    def get_context_data(self, **kwargs):
+        context = super(ListSettledComplaintsView, self).get_context_data(**kwargs)
+
+        context['category'] = Category.objects.get(clean_name=self.kwargs['category']).category
+        context['complaints_count'] = self.get_queryset().count()
+        context['today_date'] = datetime.date.today()
+        return context
 
 
 @method_decorator(group_required("MIS", "Others"), name='dispatch')
@@ -119,6 +128,8 @@ class ListSettledComplaintsView(SearchListView):
         context = super(ListSettledComplaintsView, self).get_context_data(**kwargs)
 
         context['category'] = self.categories[self.kwargs['category'].upper()]
+        context['complaints_count'] = self.get_queryset().count()
+        context['today_date'] = datetime.date.today()
         return context
 
     def get_queryset(self):
@@ -147,7 +158,9 @@ class ListReturnedComplaintsView(SearchListView):
 
     def get_context_data(self, **kwargs):
         context = super(ListReturnedComplaintsView, self).get_context_data(**kwargs)
-
+        context['category'] = self.categories[self.kwargs['category'].upper()]
+        context['complaints_count'] = self.get_queryset().count()
+        context['today_date'] = datetime.date.today()
         return context
 
     def get_queryset(self):
@@ -340,7 +353,7 @@ class CategoryReportView(SearchListView):
         context['report'] = self.generateReport()
         context['today_date'] = self.today_date
         context['last_month'] = self.previous_month
-
+        context['total_complaints'] = self.get_queryset().count()
         context['filtered_user'] = self.request.GET.get('fwd_to', 'ALL')
         return context
 
