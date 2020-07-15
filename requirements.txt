@@ -4,5 +4,5 @@ MySQL-python==1.2.5
 django-crispy-forms==1.6.0
 django-multiupload==0.5
 html5lib==0.999
-requests==2.2.1
+requests==2.20.0
 urllib3==1.7.1
